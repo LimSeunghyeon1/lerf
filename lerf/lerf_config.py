@@ -10,7 +10,7 @@ from nerfstudio.engine.schedulers import ExponentialDecaySchedulerConfig
 from nerfstudio.engine.trainer import TrainerConfig
 from nerfstudio.plugins.types import MethodSpecification
 
-from lerf.data.lerf_datamanager import LERFDataManagerConfig
+from lerf.data_omg.lerf_datamanager import LERFDataManagerConfig
 from lerf.lerf import LERFModelConfig
 from lerf.lerf_pipeline import LERFPipelineConfig
 

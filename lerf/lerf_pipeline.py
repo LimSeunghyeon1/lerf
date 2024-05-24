@@ -13,7 +13,7 @@ from nerfstudio.pipelines.base_pipeline import (
     VanillaPipelineConfig,
 )
 
-from lerf.data.lerf_datamanager import (
+from lerf.data_omg.lerf_datamanager import (
     LERFDataManager,
     LERFDataManagerConfig,
 )

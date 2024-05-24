@@ -1,6 +1,7 @@
 from collections import defaultdict
 from dataclasses import dataclass, field
 from typing import Dict, List, Tuple, Type
+from copy import deepcopy
 
 import numpy as np
 import open_clip
@@ -10,7 +11,7 @@ from nerfstudio.data.scene_box import SceneBox
 from nerfstudio.field_components.field_heads import FieldHeadNames
 from nerfstudio.field_components.spatial_distortions import SceneContraction
 from nerfstudio.model_components.ray_samplers import PDFSampler
-from nerfstudio.model_components.renderers import DepthRenderer
+from nerfstudio.model_components.renderers import DepthRenderer, RGBRenderer
 from nerfstudio.models.nerfacto import NerfactoModel, NerfactoModelConfig
 from nerfstudio.utils.colormaps import ColormapOptions, apply_colormap
 from nerfstudio.viewer.viewer_elements import *
@@ -81,11 +82,14 @@ class LERFModel(NerfactoModel):
                     if n_phrases_maxs[j] is None or pos_prob.max() > n_phrases_sims[j].max():
                         n_phrases_maxs[j] = scale
                         n_phrases_sims[j] = pos_prob
+                        
         return torch.stack(n_phrases_sims), torch.Tensor(n_phrases_maxs)
 
     def get_outputs(self, ray_bundle: RayBundle):
+        
         if self.training:
             self.camera_optimizer.apply_to_raybundle(ray_bundle)
+            
         ray_samples, weights_list, ray_samples_list = self.proposal_sampler(ray_bundle, density_fns=self.density_fns)
         ray_samples_list.append(ray_samples)
 
@@ -139,7 +143,7 @@ class LERFModel(NerfactoModel):
                 outputs["raw_relevancy"] = max_across  # N x B x 1
                 outputs["best_scales"] = best_scales.to(self.device)  # N
 
-        return outputs
+        return outputs                                    
 
     @torch.no_grad()
     def get_outputs_for_camera_ray_bundle(self, camera_ray_bundle: RayBundle) -> Dict[str, torch.Tensor]:

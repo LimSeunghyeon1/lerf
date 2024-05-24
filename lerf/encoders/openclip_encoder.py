@@ -90,7 +90,6 @@ class OpenCLIPNetwork(BaseImageEncoder):
         positive_vals = output[..., positive_id : positive_id + 1]  # rays x 1
         negative_vals = output[..., len(self.positives) :]  # rays x N_phrase
         repeated_pos = positive_vals.repeat(1, len(self.negatives))  # rays x N_phrase
-
         sims = torch.stack((repeated_pos, negative_vals), dim=-1)  # rays x N-phrase x 2
         softmax = torch.softmax(10 * sims, dim=-1)  # rays x n-phrase x 2
         best_id = softmax[..., 0].argmin(dim=1)  # rays x 2

@@ -4,8 +4,8 @@ from pathlib import Path
 
 import numpy as np
 import torch
-from lerf.data.utils.feature_dataloader import FeatureDataloader
-from lerf.data.utils.patch_embedding_dataloader import PatchEmbeddingDataloader
+from lerf.data_omg.utils.feature_dataloader import FeatureDataloader
+from lerf.data_omg.utils.patch_embedding_dataloader import PatchEmbeddingDataloader
 from lerf.encoders.image_encoder import BaseImageEncoder
 from tqdm import tqdm
 

@@ -34,8 +34,8 @@ from rich.progress import Console
 
 CONSOLE = Console(width=120)
 
-from lerf.data.utils.dino_dataloader import DinoDataloader
-from lerf.data.utils.pyramid_embedding_dataloader import PyramidEmbeddingDataloader
+from lerf.data_omg.utils.dino_dataloader import DinoDataloader
+from lerf.data_omg.utils.pyramid_embedding_dataloader import PyramidEmbeddingDataloader
 from lerf.encoders.image_encoder import BaseImageEncoder
 from nerfstudio.data.datamanagers.base_datamanager import VanillaDataManager, VanillaDataManagerConfig
 
